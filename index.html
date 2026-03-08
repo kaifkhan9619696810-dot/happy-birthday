@@ -30,6 +30,7 @@ text-align:center;
 
 .container{
 z-index:10;
+padding:20px;
 }
 
 h1{
@@ -70,6 +71,12 @@ font-size:22px;
 animation:float 6s linear infinite;
 }
 
+.flower{
+position:absolute;
+font-size:22px;
+animation:fall linear infinite;
+}
+
 @keyframes float{
 0%{
 transform:translateY(100vh);
@@ -81,15 +88,26 @@ opacity:0;
 }
 }
 
+@keyframes fall{
+0%{
+transform:translateY(-10vh) rotate(0deg);
+opacity:1;
+}
+100%{
+transform:translateY(110vh) rotate(360deg);
+opacity:0.8;
+}
+}
+
 .burst{
 position:absolute;
-font-size:24px;
+font-size:26px;
 animation:burst 1s ease-out forwards;
 }
 
 @keyframes burst{
 0%{transform:scale(0)}
-100%{transform:scale(2) translateY(-100px);opacity:0}
+100%{transform:scale(2) translateY(-120px);opacity:0}
 }
 
 </style>
@@ -106,8 +124,8 @@ animation:burst 1s ease-out forwards;
 <button onclick="surprise()">Open Surprise 💌</button>
 
 <div class="message" id="msg">
-✨ To the incredible women who make the world brighter every day.  
-Your strength, kindness, and courage inspire everyone around you.  
+✨ To the incredible women who make the world brighter every day.<br><br>
+Your strength, kindness, and courage inspire everyone around you.<br><br>
 Never forget how powerful and extraordinary you truly are. 💐
 </div>
 
@@ -141,13 +159,28 @@ heart.remove();
 },6000);
 }
 
-setInterval(createHeart,250);
+setInterval(createHeart,300);
+
+function createFlower(){
+const flower=document.createElement("div");
+flower.classList.add("flower");
+flower.innerHTML="🌸";
+flower.style.left=Math.random()*100+"vw";
+flower.style.animationDuration=(Math.random()*5+5)+"s";
+document.body.appendChild(flower);
+
+setTimeout(()=>{
+flower.remove();
+},10000);
+}
+
+setInterval(createFlower,500);
 
 function surprise(){
 
 document.getElementById("msg").style.display="block";
 
-for(let i=0;i<25;i++){
+for(let i=0;i<30;i++){
 
 const heart=document.createElement("div");
 heart.classList.add("burst");
@@ -158,4 +191,15 @@ heart.style.top=(window.innerHeight/2)+"px";
 
 document.body.appendChild(heart);
 
-set
+setTimeout(()=>{
+heart.remove();
+},1000);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
