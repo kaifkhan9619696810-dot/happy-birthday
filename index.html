@@ -40,7 +40,7 @@ z-index:1;
 overflow:hidden;
 }
 
-/* floating petals */
+/* petals */
 
 .petal{
 position:absolute;
@@ -67,7 +67,14 @@ opacity:0;
 
 }
 
-/* glass panel */
+/* swirl effect */
+
+@keyframes swirl{
+0%{transform:translateY(0) rotate(0deg)}
+100%{transform:translateY(-120vh) rotate(720deg)}
+}
+
+/* GLASS PANEL */
 
 .glass-box{
 
@@ -100,7 +107,32 @@ pointer-events:none;
 
 }
 
-/* text */
+/* glow effect */
+
+@keyframes glassGlow {
+
+0%{
+background:rgba(255,255,255,0.28);
+box-shadow:0 20px 40px rgba(0,0,0,0.12);
+}
+
+50%{
+background:rgba(255,255,255,0.38);
+box-shadow:0 25px 55px rgba(0,0,0,0.18);
+}
+
+100%{
+background:rgba(255,255,255,0.28);
+box-shadow:0 20px 40px rgba(0,0,0,0.12);
+}
+
+}
+
+.glow{
+animation:glassGlow 2.5s ease-in-out;
+}
+
+/* TEXT */
 
 .text{
 font-size:28px;
@@ -110,7 +142,7 @@ transition:all 0.6s ease;
 pointer-events:auto;
 }
 
-/* title */
+/* TITLE */
 
 .title-row{
 display:flex;
@@ -125,17 +157,10 @@ font-weight:500;
 font-size:36px;
 }
 
-/* scroll sections */
+/* scroll spacing */
 
 .section{
 height:60vh;
-}
-
-/* celebration */
-
-@keyframes swirl{
-0%{transform:translateY(0) rotate(0deg)}
-100%{transform:translateY(-120vh) rotate(720deg)}
 }
 
 @media(max-width:600px){
@@ -236,15 +261,29 @@ box.style.transform="translateY(0)";
 
 lastIndex=index;
 
-if(index===messages.length-1){
-celebrate();
 }
+
+});
+
+/* celebration trigger */
+
+let celebrationTriggered=false;
+
+window.addEventListener("scroll",()=>{
+
+const scrollPosition = window.scrollY + window.innerHeight;
+const pageHeight = document.documentElement.scrollHeight;
+
+if(!celebrationTriggered && scrollPosition > pageHeight - 200){
+
+celebrationTriggered=true;
+celebrate();
 
 }
 
 });
 
-/* floating petals */
+/* petals */
 
 function createPetal(){
 
@@ -268,7 +307,15 @@ setInterval(createPetal,600);
 
 function celebrate(){
 
-for(let i=0;i<25;i++){
+const glass=document.querySelector(".glass-box");
+
+glass.classList.add("glow");
+
+setTimeout(()=>{
+glass.classList.remove("glow");
+},2500);
+
+for(let i=0;i<40;i++){
 
 const petal=document.createElement("div");
 
@@ -276,12 +323,12 @@ petal.className="petal";
 petal.innerHTML="🌸";
 
 petal.style.left=Math.random()*100+"%";
-petal.style.fontSize="28px";
-petal.style.animation="swirl 4s ease-out forwards";
+petal.style.fontSize="30px";
+petal.style.animation="swirl 3.5s ease-out forwards";
 
 document.getElementById("petal-layer").appendChild(petal);
 
-setTimeout(()=>petal.remove(),4000);
+setTimeout(()=>petal.remove(),3500);
 
 }
 
