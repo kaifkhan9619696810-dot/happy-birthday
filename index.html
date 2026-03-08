@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Women's Day 🌸</title>
+<title>Happy Women's Day</title>
 
 <style>
 
@@ -15,9 +15,9 @@ font-family:"Segoe UI",sans-serif;
 }
 
 body{
-background:linear-gradient(140deg,#ffd9ec,#f7c7ff,#ffe8c7);
+background:linear-gradient(120deg,#eef2ff,#f8faff,#f1f5ff);
 background-size:300% 300%;
-animation:bgMove 15s ease infinite;
+animation:bgMove 18s ease infinite;
 overflow-x:hidden;
 color:#333;
 }
@@ -28,7 +28,7 @@ color:#333;
 100%{background-position:0% 50%}
 }
 
-/* PETAL LAYER */
+/* PETALS */
 
 #petal-layer{
 position:fixed;
@@ -42,12 +42,12 @@ z-index:1;
 
 .petal{
 position:absolute;
-font-size:24px;
-opacity:0.85;
-animation:float 10s linear forwards;
+font-size:22px;
+opacity:0.8;
+animation:fall linear forwards;
 }
 
-@keyframes float{
+@keyframes fall{
 0%{transform:translateY(-10vh) rotate(0deg);}
 100%{transform:translateY(110vh) rotate(360deg);}
 }
@@ -65,22 +65,31 @@ padding:40px;
 /* GLASS CARD */
 
 .card{
-width:90%;
-max-width:820px;
-background:rgba(255,255,255,0.35);
-backdrop-filter:blur(16px);
-border-radius:28px;
-border:1px solid rgba(255,255,255,0.45);
-box-shadow:0 25px 60px rgba(0,0,0,0.15);
-padding:60px;
+
+width:95%;
+max-width:900px;
+
+background:rgba(255,255,255,0.55);
+backdrop-filter:blur(20px);
+
+border-radius:30px;
+border:1px solid rgba(255,255,255,0.7);
+
+box-shadow:0 30px 70px rgba(0,0,0,0.12);
+
+padding:90px 60px;
+
 text-align:center;
+
 opacity:0;
-transform:translateY(50px);
-transition:all 0.8s ease;
+transform:translateY(60px);
+transition:all 0.9s ease;
+
 z-index:2;
+
 }
 
-/* REVEAL ANIMATION */
+/* REVEAL */
 
 .card.show{
 opacity:1;
@@ -93,19 +102,19 @@ transform:translateY(0);
 display:flex;
 align-items:center;
 justify-content:center;
-gap:18px;
-font-size:36px;
+gap:20px;
+font-size:44px;
 font-weight:500;
 }
 
 .title span{
-font-size:42px;
+font-size:46px;
 }
 
 /* TEXT */
 
 .text{
-font-size:26px;
+font-size:28px;
 line-height:1.7;
 }
 
@@ -116,16 +125,16 @@ animation:glow 2.5s infinite alternate;
 }
 
 @keyframes glow{
-from{box-shadow:0 20px 40px rgba(0,0,0,0.12);}
-to{box-shadow:0 25px 70px rgba(255,120,200,0.4);}
+from{box-shadow:0 25px 60px rgba(0,0,0,0.12);}
+to{box-shadow:0 30px 80px rgba(120,150,255,0.35);}
 }
 
-/* WATER RIPPLE */
+/* RIPPLE */
 
 .ripple{
 position:absolute;
 border-radius:50%;
-background:rgba(255,255,255,0.45);
+background:rgba(255,255,255,0.6);
 transform:scale(0);
 animation:rippleAnim 0.8s ease-out;
 pointer-events:none;
@@ -133,21 +142,19 @@ pointer-events:none;
 
 @keyframes rippleAnim{
 to{
-transform:scale(10);
+transform:scale(6);
 opacity:0;
 }
 }
 
-/* MOBILE */
-
 @media(max-width:600px){
 
-.title{font-size:28px}
-.title span{font-size:32px}
+.card{padding:60px 35px}
 
-.text{font-size:20px}
+.title{font-size:32px}
+.title span{font-size:34px}
 
-.card{padding:40px}
+.text{font-size:22px}
 
 }
 
@@ -227,33 +234,33 @@ petal.className="petal";
 petal.innerHTML="🌸";
 
 petal.style.left=Math.random()*100+"%";
-petal.style.animationDuration=(Math.random()*5+6)+"s";
+petal.style.animationDuration=(Math.random()*6+6)+"s";
 
 document.getElementById("petal-layer").appendChild(petal);
 
 setTimeout(()=>{
 petal.remove();
-},11000);
+},12000);
 
 }
 
-setInterval(createPetal,600);
+setInterval(createPetal,700);
 
-/* RIPPLE EFFECT */
+/* SCROLL RIPPLE */
 
-document.addEventListener("click",function(e){
+window.addEventListener("scroll",function(){
 
 const ripple=document.createElement("div");
 
 ripple.className="ripple";
 
-const size=80;
+const size=60;
 
 ripple.style.width=size+"px";
 ripple.style.height=size+"px";
 
-ripple.style.left=(e.clientX-size/2)+"px";
-ripple.style.top=(e.clientY-size/2)+"px";
+ripple.style.left=(window.innerWidth/2 - size/2)+"px";
+ripple.style.top=(window.innerHeight/2 - size/2)+"px";
 
 document.body.appendChild(ripple);
 
