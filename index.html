@@ -14,15 +14,11 @@ box-sizing:border-box;
 font-family:'Segoe UI',sans-serif;
 }
 
-html,body{
-height:100%;
-overflow-x:hidden;
-}
-
 body{
 background:linear-gradient(140deg,#f8d7ff,#ffd7e8,#ffe5c7);
 background-size:300% 300%;
 animation:bgMove 18s ease infinite;
+overflow-x:hidden;
 }
 
 @keyframes bgMove{
@@ -31,10 +27,10 @@ animation:bgMove 18s ease infinite;
 100%{background-position:0% 50%}
 }
 
-/* Scroll height */
+/* Scroll sections */
 
-.scroll-space{
-height:600vh;
+.section{
+height:100vh;
 }
 
 /* Glass panel */
@@ -57,7 +53,6 @@ justify-content:center;
 
 background:rgba(255,255,255,0.28);
 backdrop-filter:blur(18px);
--webkit-backdrop-filter:blur(18px);
 
 border-radius:28px;
 border:1px solid rgba(255,255,255,0.45);
@@ -67,20 +62,18 @@ box-shadow:0 20px 40px rgba(0,0,0,0.12);
 padding:40px;
 text-align:center;
 
-overflow:hidden;
-
 }
 
-/* Text container */
+/* Text */
 
 .text{
 font-size:28px;
 color:#333;
 line-height:1.6;
-transition:transform 0.3s ease;
+transition:all 0.6s ease;
 }
 
-/* Title row */
+/* Title layout */
 
 .title-row{
 display:flex;
@@ -107,21 +100,17 @@ z-index:0;
 }
 
 @keyframes rise{
-
 0%{
 transform:translateY(100vh) rotate(0deg);
 opacity:0;
 }
-
 10%{
 opacity:0.7;
 }
-
 100%{
 transform:translateY(-10vh) rotate(360deg);
 opacity:0;
 }
-
 }
 
 /* Celebration swirl */
@@ -169,11 +158,15 @@ padding:30px;
 
 </div>
 
-<div class="scroll-space"></div>
+<!-- Scroll sections -->
+
+<div class="section"></div>
+<div class="section"></div>
+<div class="section"></div>
+<div class="section"></div>
+<div class="section"></div>
 
 <script>
-
-/* Messages */
 
 const messages=[
 
@@ -197,40 +190,35 @@ today is for you. 💐`
 
 ];
 
-let lastIndex=0;
-
-/* Scroll cinematic movement */
+let lastIndex=-1;
 
 window.addEventListener("scroll",()=>{
 
-const scrollTop = window.scrollY;
-const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+const scroll=window.scrollY;
+const height=window.innerHeight;
 
-const progress = scrollTop / docHeight;
-
-const index = Math.min(
-messages.length - 1,
-Math.floor(progress * messages.length)
+const index=Math.min(
+messages.length-1,
+Math.floor(scroll/height)
 );
-
-const box=document.getElementById("message");
-
-/* move text upward smoothly */
-
-const offset=(progress*messages.length-index)*120;
-box.style.transform=`translateY(-${offset}px)`;
-
-/* change message */
 
 if(index!==lastIndex){
 
+const box=document.getElementById("message");
+
+box.style.opacity=0;
+box.style.transform="translateY(30px)";
+
+setTimeout(()=>{
+
 box.innerHTML=messages[index];
-box.style.transform="translateY(60px)";
-setTimeout(()=>{box.style.transform="translateY(0)"},100);
+
+box.style.opacity=1;
+box.style.transform="translateY(0)";
+
+},300);
 
 lastIndex=index;
-
-/* celebration on final message */
 
 if(index===messages.length-1){
 celebrate();
@@ -254,15 +242,13 @@ petal.style.animationDuration=(Math.random()*6+8)+"s";
 
 document.body.appendChild(petal);
 
-setTimeout(()=>{
-petal.remove();
-},14000);
+setTimeout(()=>petal.remove(),14000);
 
 }
 
 setInterval(createPetal,900);
 
-/* Celebration swirl */
+/* Celebration effect */
 
 function celebrate(){
 
