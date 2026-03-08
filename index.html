@@ -40,8 +40,6 @@ z-index:1;
 overflow:hidden;
 }
 
-/* petals */
-
 .petal{
 position:absolute;
 font-size:24px;
@@ -50,24 +48,16 @@ animation:rise linear forwards;
 }
 
 @keyframes rise{
-
 0%{
 transform:translateY(100vh) rotate(0deg);
 opacity:0;
 }
-
-10%{
-opacity:0.8;
-}
-
+10%{opacity:0.8;}
 100%{
 transform:translateY(-10vh) rotate(360deg);
 opacity:0;
 }
-
 }
-
-/* swirl effect */
 
 @keyframes swirl{
 0%{transform:translateY(0) rotate(0deg)}
@@ -77,7 +67,6 @@ opacity:0;
 /* GLASS PANEL */
 
 .glass-box{
-
 position:fixed;
 top:50%;
 left:50%;
@@ -104,28 +93,23 @@ padding:40px;
 text-align:center;
 
 pointer-events:none;
-
 }
 
-/* glow effect */
+/* Glow animation */
 
-@keyframes glassGlow {
-
+@keyframes glassGlow{
 0%{
 background:rgba(255,255,255,0.28);
 box-shadow:0 20px 40px rgba(0,0,0,0.12);
 }
-
 50%{
 background:rgba(255,255,255,0.38);
 box-shadow:0 25px 55px rgba(0,0,0,0.18);
 }
-
 100%{
 background:rgba(255,255,255,0.28);
 box-shadow:0 20px 40px rgba(0,0,0,0.12);
 }
-
 }
 
 .glow{
@@ -142,8 +126,6 @@ transition:all 0.6s ease;
 pointer-events:auto;
 }
 
-/* TITLE */
-
 .title-row{
 display:flex;
 align-items:center;
@@ -157,7 +139,7 @@ font-weight:500;
 font-size:36px;
 }
 
-/* scroll spacing */
+/* Scroll sections */
 
 .section{
 height:60vh;
@@ -217,35 +199,28 @@ const messages=[
 <span class="flower">🌸</span>
 </div>`,
 
-`Today we celebrate the strength
-that shapes the world.`,
+`Today we celebrate the strength that shapes the world.`,
 
-`The courage to rise
-again and again.`,
+`The courage to rise again and again.`,
 
-`The kindness that makes
-life brighter.`,
+`The kindness that makes life brighter.`,
 
-`To every incredible woman —
-today is for you. 💐`
+`To every incredible woman — today is for you. 💐`
 
 ];
 
 let lastIndex=-1;
+let celebrationTriggered=false;
 
 window.addEventListener("scroll",()=>{
 
-const sections = document.querySelectorAll(".section");
+const scroll=window.scrollY;
+const sectionHeight=window.innerHeight*0.6;
 
-window.addEventListener("scroll",()=>{
+let index=Math.floor(scroll/sectionHeight);
 
-const scrollTop = window.scrollY;
-const sectionHeight = window.innerHeight * 0.6;
-
-let index = Math.floor(scrollTop / sectionHeight);
-
-if(index >= messages.length){
-index = messages.length - 1;
+if(index>=messages.length){
+index=messages.length-1;
 }
 
 if(index!==lastIndex){
@@ -266,29 +241,16 @@ box.style.transform="translateY(0)";
 
 lastIndex=index;
 
-}
-
-});
-
-/* celebration trigger */
-
-let celebrationTriggered=false;
-
-window.addEventListener("scroll",()=>{
-
-const scrollPosition = window.scrollY + window.innerHeight;
-const pageHeight = document.documentElement.scrollHeight;
-
-if(!celebrationTriggered && index === messages.length - 1){
-
+if(index===messages.length-1 && !celebrationTriggered){
 celebrationTriggered=true;
 celebrate();
+}
 
 }
 
 });
 
-/* petals */
+/* floating petals */
 
 function createPetal(){
 
