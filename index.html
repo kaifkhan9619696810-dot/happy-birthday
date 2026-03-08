@@ -28,7 +28,7 @@ color:#333;
 100%{background-position:0% 50%}
 }
 
-/* PETALS */
+/* PETAL LAYER */
 
 #petal-layer{
 position:fixed;
@@ -39,6 +39,8 @@ height:100%;
 pointer-events:none;
 z-index:1;
 }
+
+/* PETALS */
 
 .petal{
 position:absolute;
@@ -114,18 +116,13 @@ z-index:2;
 
 }
 
-/* GLOWING EDGE */
+/* GLOW EDGE */
 
 .card::after{
-
 content:"";
-
 position:absolute;
-
 inset:0;
-
 border-radius:inherit;
-
 padding:1.5px;
 
 background:linear-gradient(
@@ -143,9 +140,30 @@ linear-gradient(#000 0 0);
 mask-composite:exclude;
 
 opacity:0.6;
-
 pointer-events:none;
+}
 
+/* REFLECTION */
+
+.card::before{
+content:"";
+position:absolute;
+
+top:-50%;
+left:-50%;
+
+width:200%;
+height:200%;
+
+background:linear-gradient(
+120deg,
+rgba(255,255,255,0.15) 0%,
+rgba(255,255,255,0.35) 40%,
+rgba(255,255,255,0.15) 60%
+);
+
+transform:rotate(25deg);
+opacity:0.35;
 }
 
 /* SHOW CARD */
@@ -162,12 +180,19 @@ display:flex;
 align-items:center;
 justify-content:center;
 gap:25px;
-font-size:50px;
+
+font-size:52px;
 font-weight:500;
+
+color:#2b2b2b;
+
+text-shadow:
+0 1px 0 rgba(255,255,255,0.7),
+0 4px 10px rgba(255,255,255,0.3);
 }
 
 .title span{
-font-size:52px;
+font-size:54px;
 }
 
 /* TEXT */
@@ -175,6 +200,12 @@ font-size:52px;
 .text{
 font-size:30px;
 line-height:1.8;
+
+color:#2f2f2f;
+
+text-shadow:
+0 1px 0 rgba(255,255,255,0.6),
+0 3px 8px rgba(255,255,255,0.25);
 }
 
 /* FINAL GLOW */
@@ -191,33 +222,22 @@ to{box-shadow:0 45px 120px rgba(120,150,255,0.4);}
 /* RIPPLE */
 
 .ripple{
-
 position:fixed;
-
 width:50px;
 height:50px;
-
 border-radius:50%;
-
 border:2px solid rgba(255,255,255,0.8);
-
 transform:scale(0);
-
 animation:rippleAnim 0.6s ease-out;
-
 pointer-events:none;
-
 z-index:3;
-
 }
 
 @keyframes rippleAnim{
-
 to{
 transform:scale(3);
 opacity:0;
 }
-
 }
 
 /* MOBILE */
@@ -303,17 +323,25 @@ my amazing sister. 🌸
 /* SCROLL REVEAL */
 
 const cards=document.querySelectorAll(".card");
+let celebrationTriggered=false;
 
 function revealCards(){
 
 const trigger=window.innerHeight*0.55;
 
-cards.forEach(card=>{
+cards.forEach((card,index)=>{
 
 const rect=card.getBoundingClientRect();
 
 if(rect.top<trigger && rect.bottom>trigger){
+
 card.classList.add("show");
+
+if(index===cards.length-1 && !celebrationTriggered){
+celebrate();
+celebrationTriggered=true;
+}
+
 }else{
 card.classList.remove("show");
 }
@@ -325,7 +353,7 @@ card.classList.remove("show");
 window.addEventListener("scroll",revealCards);
 revealCards();
 
-/* PETALS */
+/* FLOATING PETALS */
 
 function createPetal(){
 
@@ -347,18 +375,41 @@ petal.remove();
 
 setInterval(createPetal,700);
 
+/* CELEBRATION BURST */
+
+function celebrate(){
+
+for(let i=0;i<25;i++){
+
+const petal=document.createElement("div");
+
+petal.className="petal";
+petal.innerHTML="🌸";
+
+petal.style.left=Math.random()*100+"%";
+petal.style.top="50%";
+
+petal.style.animationDuration="4s";
+
+document.getElementById("petal-layer").appendChild(petal);
+
+setTimeout(()=>{
+petal.remove();
+},4000);
+
+}
+
+}
+
 /* RIPPLE */
 
 document.addEventListener("touchmove", function(e){
-
 createRipple(e.touches[0].clientX,e.touches[0].clientY);
-
 });
 
 function createRipple(x,y){
 
 const ripple=document.createElement("div");
-
 ripple.className="ripple";
 
 ripple.style.left=(x-25)+"px";
@@ -393,10 +444,8 @@ const tiltX = event.beta / 30;
 const tiltY = event.gamma / 30;
 
 document.querySelectorAll(".card").forEach(card=>{
-
 card.style.transform =
 "rotateX("+tiltX+"deg) rotateY("+tiltY+"deg)";
-
 });
 
 });
