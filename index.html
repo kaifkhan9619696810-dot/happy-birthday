@@ -27,10 +27,44 @@ overflow-x:hidden;
 100%{background-position:0% 50%}
 }
 
-/* shorter scroll sections */
+/* PETAL LAYER */
 
-.section{
-height:60vh;
+#petal-layer{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:1;
+overflow:hidden;
+}
+
+/* floating petals */
+
+.petal{
+position:absolute;
+font-size:24px;
+opacity:0.8;
+animation:rise linear forwards;
+}
+
+@keyframes rise{
+
+0%{
+transform:translateY(100vh) rotate(0deg);
+opacity:0;
+}
+
+10%{
+opacity:0.8;
+}
+
+100%{
+transform:translateY(-10vh) rotate(360deg);
+opacity:0;
+}
+
 }
 
 /* glass panel */
@@ -91,36 +125,13 @@ font-weight:500;
 font-size:36px;
 }
 
-/* floating petals */
+/* scroll sections */
 
-.petal{
-position:fixed;
-font-size:22px;
-opacity:0.7;
-pointer-events:none;
-animation:rise linear forwards;
-z-index:1;
+.section{
+height:60vh;
 }
 
-@keyframes rise{
-
-0%{
-transform:translateY(100vh) rotate(0deg);
-opacity:0;
-}
-
-10%{
-opacity:0.7;
-}
-
-100%{
-transform:translateY(-10vh) rotate(360deg);
-opacity:0;
-}
-
-}
-
-/* celebration swirl */
+/* celebration */
 
 @keyframes swirl{
 0%{transform:translateY(0) rotate(0deg)}
@@ -148,6 +159,8 @@ padding:30px;
 </head>
 
 <body>
+
+<div id="petal-layer"></div>
 
 <div class="glass-box">
 
@@ -231,7 +244,7 @@ celebrate();
 
 });
 
-/* petals */
+/* floating petals */
 
 function createPetal(){
 
@@ -240,16 +253,16 @@ const petal=document.createElement("div");
 petal.className="petal";
 petal.innerHTML="🌸";
 
-petal.style.left=Math.random()*100+"vw";
+petal.style.left=Math.random()*100+"%";
 petal.style.animationDuration=(Math.random()*6+8)+"s";
 
-document.body.appendChild(petal);
+document.getElementById("petal-layer").appendChild(petal);
 
 setTimeout(()=>petal.remove(),14000);
 
 }
 
-setInterval(createPetal,700);
+setInterval(createPetal,600);
 
 /* celebration */
 
@@ -262,11 +275,11 @@ const petal=document.createElement("div");
 petal.className="petal";
 petal.innerHTML="🌸";
 
-petal.style.left=Math.random()*100+"vw";
-petal.style.fontSize="26px";
+petal.style.left=Math.random()*100+"%";
+petal.style.fontSize="28px";
 petal.style.animation="swirl 4s ease-out forwards";
 
-document.body.appendChild(petal);
+document.getElementById("petal-layer").appendChild(petal);
 
 setTimeout(()=>petal.remove(),4000);
 
