@@ -235,13 +235,18 @@ let lastIndex=-1;
 
 window.addEventListener("scroll",()=>{
 
-const scroll=window.scrollY;
-const height=window.innerHeight*0.6;
+const sections = document.querySelectorAll(".section");
 
-const index=Math.min(
-messages.length-1,
-Math.floor(scroll/height)
-);
+window.addEventListener("scroll",()=>{
+
+const scrollTop = window.scrollY;
+const sectionHeight = window.innerHeight * 0.6;
+
+let index = Math.floor(scrollTop / sectionHeight);
+
+if(index >= messages.length){
+index = messages.length - 1;
+}
 
 if(index!==lastIndex){
 
@@ -274,7 +279,7 @@ window.addEventListener("scroll",()=>{
 const scrollPosition = window.scrollY + window.innerHeight;
 const pageHeight = document.documentElement.scrollHeight;
 
-if(!celebrationTriggered && scrollPosition > pageHeight - 200){
+if(!celebrationTriggered && index === messages.length - 1){
 
 celebrationTriggered=true;
 celebrate();
