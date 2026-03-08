@@ -11,90 +11,123 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family: 'Segoe UI', sans-serif;
+font-family:'Segoe UI',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
 }
 
 body{
-overflow-x:hidden;
-background:linear-gradient(140deg,#f8d7ff,#ffd7e8,#ffe5c7);
-}
-
-/* SECTION LAYOUT */
-
-section{
-height:120vh;
+height:500vh;
 display:flex;
 align-items:center;
 justify-content:center;
-padding:40px;
+overflow-x:hidden;
+
+background:linear-gradient(140deg,#f8d7ff,#ffd7e8,#ffe5c7);
+background-size:300% 300%;
+animation:bgMove 18s ease infinite;
 }
 
-/* GLASS BOX */
+/* Background gradient animation */
+
+@keyframes bgMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* Glass panel */
 
 .glass-box{
+
+position:fixed;
 
 width:90%;
 max-width:900px;
-min-height:70vh;
+height:70vh;
 
 display:flex;
 align-items:center;
 justify-content:center;
-text-align:center;
+
+background:rgba(255,255,255,0.28);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+
+border-radius:28px;
+border:1px solid rgba(255,255,255,0.45);
+
+box-shadow:0 20px 40px rgba(0,0,0,0.12);
+
 padding:40px;
+text-align:center;
 
-font-size:24px;
-line-height:1.7;
+}
+
+/* Message text */
+
+.text{
+
+font-size:30px;
 color:#333;
-
-background:rgba(255,255,255,0.35);
-backdrop-filter:blur(14px);
--webkit-backdrop-filter:blur(14px);
-
-border-radius:25px;
-border:1px solid rgba(255,255,255,0.5);
-
-box-shadow:0 15px 35px rgba(0,0,0,0.1);
+line-height:1.6;
 
 opacity:0;
-transform:translateY(120px);
-transition:all 1.3s ease;
+transform:translateY(20px);
+transition:all 0.8s ease;
 
 }
 
-/* VISIBLE STATE */
-
-.glass-box.show{
-
+.text.show{
 opacity:1;
 transform:translateY(0);
-
 }
 
-/* TITLE STYLE */
+/* Flower style */
 
-.title{
-
-font-size:36px;
-font-weight:600;
-
+.flower{
+font-size:40px;
+margin:10px 0;
 }
 
-/* MOBILE */
+/* Floating petals */
+
+.petal{
+position:fixed;
+font-size:20px;
+opacity:0.6;
+pointer-events:none;
+animation:rise linear forwards;
+z-index:-1;
+}
+
+@keyframes rise{
+0%{
+transform:translateY(100vh) rotate(0deg);
+opacity:0;
+}
+10%{
+opacity:0.7;
+}
+100%{
+transform:translateY(-10vh) rotate(360deg);
+opacity:0;
+}
+}
+
+/* Mobile adjustment */
 
 @media(max-width:600px){
 
-.glass-box{
-
-font-size:20px;
-padding:30px;
-
+.text{
+font-size:24px;
 }
 
-.title{
-
-font-size:28px;
-
+.glass-box{
+height:65vh;
+padding:30px;
 }
 
 }
@@ -104,67 +137,94 @@ font-size:28px;
 
 <body>
 
-<section>
-<div class="glass-box reveal">
-<div class="title">🌸 Happy Women's Day 🌸</div>
-</div>
-</section>
+<div class="glass-box">
 
-<section>
-<div class="glass-box reveal">
-Today we celebrate the strength and resilience that women bring into the world every single day.
-</div>
-</section>
+<div id="message" class="text show">
 
-<section>
-<div class="glass-box reveal">
-Through courage and determination, women continue to shape the future in countless meaningful ways.
-</div>
-</section>
+<div class="flower">🌸</div>
+Happy Women's Day
+<div class="flower">🌸</div>
 
-<section>
-<div class="glass-box reveal">
-Their compassion, wisdom and kindness make the world a warmer and more beautiful place.
 </div>
-</section>
 
-<section>
-<div class="glass-box reveal">
-Today is a celebration of every incredible woman who inspires the world simply by being herself. 💐
 </div>
-</section>
 
 <script>
 
-/* SCROLL REVEAL */
+/* Messages for scroll storytelling */
 
-const elements=document.querySelectorAll(".reveal");
+const messages=[
 
-function reveal(){
+`<div class="flower">🌸</div>
+Happy Women's Day
+<div class="flower">🌸</div>`,
 
-const trigger=window.innerHeight*0.8;
+`Today we celebrate the strength
+that shapes the world.`,
 
-elements.forEach(el=>{
+`The courage to rise
+again and again.`,
 
-const top=el.getBoundingClientRect().top;
+`The kindness that makes
+life brighter.`,
 
-if(top<trigger){
+`To every incredible woman —
+today is for you. 💐`
 
-el.classList.add("show");
+];
 
-}else{
+let current=0;
 
-el.classList.remove("show");
+window.addEventListener("scroll",()=>{
+
+const scroll=window.scrollY;
+const height=document.body.scrollHeight-window.innerHeight;
+
+const progress=scroll/height;
+
+const index=Math.floor(progress*messages.length);
+
+if(index!==current && index<messages.length){
+
+current=index;
+
+const box=document.getElementById("message");
+
+box.classList.remove("show");
+
+setTimeout(()=>{
+
+box.innerHTML=messages[index];
+
+box.classList.add("show");
+
+},300);
 
 }
 
 });
 
+/* Floating petals animation */
+
+function createPetal(){
+
+const petal=document.createElement("div");
+
+petal.className="petal";
+petal.innerHTML="🌸";
+
+petal.style.left=Math.random()*100+"vw";
+petal.style.animationDuration=(Math.random()*6+8)+"s";
+
+document.body.appendChild(petal);
+
+setTimeout(()=>{
+petal.remove();
+},14000);
+
 }
 
-window.addEventListener("scroll",reveal);
-
-reveal();
+setInterval(createPetal,800);
 
 </script>
 
