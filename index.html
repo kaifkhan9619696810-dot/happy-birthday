@@ -3,474 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Women's Day</title>
+<title>Official Notice</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Segoe UI",sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
 }
 
 body{
-background:linear-gradient(120deg,#eef2ff,#f6f8ff,#edf1ff);
-background-size:300% 300%;
-animation:bgMove 20s ease infinite;
-overflow-x:hidden;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle at top, #1f2937, #0b0f19);
+    color:#fff;
 }
 
-@keyframes bgMove{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
+.container{
+    text-align:center;
+    padding:40px;
+    max-width:600px;
+    width:90%;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:20px;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
+    animation:fadeIn 1s ease-in-out;
 }
 
-/* PETALS */
-
-#petal-layer{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:1;
+.badge{
+    display:inline-block;
+    padding:6px 14px;
+    background:#ef4444;
+    border-radius:50px;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:1px;
+    margin-bottom:20px;
 }
 
-.petal{
-position:absolute;
-font-size:22px;
-opacity:0.9;
-animation:fall linear forwards;
+h1{
+    font-size:clamp(2rem, 5vw, 2.5rem);
+    margin-bottom:15px;
+    color:#f9fafb;
 }
 
-@keyframes fall{
-0%{transform:translateY(-10vh) translateX(0) rotate(0deg);}
-50%{transform:translateY(50vh) translateX(25px) rotate(180deg);}
-100%{transform:translateY(110vh) translateX(-25px) rotate(360deg);}
+p{
+    font-size:1.2rem;
+    color:#cbd5e1;
+    margin:10px 0;
+    line-height:1.6;
 }
 
-/* SPARKLES */
-
-.sparkle{
-position:fixed;
-font-size:16px;
-animation:sparkle 2s ease-out forwards;
-pointer-events:none;
-z-index:9999;
+.highlight{
+    color:#fbbf24;
+    font-weight:600;
 }
 
-@keyframes sparkle{
-0%{opacity:0; transform:scale(0.5);}
-50%{opacity:1; transform:scale(1.4);}
-100%{opacity:0; transform:scale(0.6);}
+.signature{
+    margin-top:25px;
+    font-size:0.9rem;
+    color:#94a3b8;
 }
 
-/* SECTIONS */
-
-section{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:40px;
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
-
-/* LIQUID GLASS CARD */
-
-.card{
-
-position:relative;
-overflow:hidden;
-
-width:97%;
-max-width:1100px;
-
-min-height:80vh;
-
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:18px;
-
-background:rgba(255,255,255,0.08);
-
-backdrop-filter:blur(60px) saturate(180%);
--webkit-backdrop-filter:blur(60px) saturate(180%);
-
-border-radius:36px;
-
-border:1px solid rgba(255,255,255,0.35);
-
-box-shadow:
-0 40px 120px rgba(0,0,0,0.2),
-inset 0 1px 0 rgba(255,255,255,0.6),
-inset 0 -1px 0 rgba(255,255,255,0.25);
-
-padding:120px 80px;
-
-text-align:center;
-
-opacity:0;
-transform:translateY(90px) scale(0.96);
-
-transition:
-opacity 0.9s ease,
-transform 0.9s ease;
-
-z-index:2;
-
-}
-
-/* GLASS REFLECTION */
-
-.card::before{
-
-content:"";
-position:absolute;
-top:-50%;
-left:-50%;
-
-width:200%;
-height:200%;
-
-background:linear-gradient(
-120deg,
-rgba(255,255,255,0.25),
-rgba(255,255,255,0.08),
-rgba(255,255,255,0.25)
-);
-
-transform:rotate(25deg);
-opacity:0.45;
-pointer-events:none;
-
-}
-
-/* EDGE LIGHT */
-
-.card::after{
-
-content:"";
-position:absolute;
-inset:0;
-border-radius:inherit;
-padding:1.5px;
-
-background:linear-gradient(
-120deg,
-rgba(255,255,255,0.8),
-rgba(255,255,255,0.15),
-rgba(255,255,255,0.8)
-);
-
--webkit-mask:
-linear-gradient(#000 0 0) content-box,
-linear-gradient(#000 0 0);
-
--webkit-mask-composite:xor;
-mask-composite:exclude;
-
-opacity:0.6;
-pointer-events:none;
-
-}
-
-/* SHOW CARD */
-
-.card.show{
-opacity:1;
-transform:translateY(0) scale(1);
-}
-
-/* TITLE */
-
-.title{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:20px;
-
-font-size:44px;
-font-weight:500;
-
-color:#2b2b2b;
-
-text-shadow:
-0 0 12px rgba(255,255,255,0.9),
-0 0 24px rgba(255,255,255,0.6),
-0 4px 12px rgba(0,0,0,0.15);
-}
-
-/* TEXT */
-
-.text{
-font-size:26px;
-line-height:1.9;
-
-color:#2b2b2b;
-
-text-shadow:
-0 0 8px rgba(255,255,255,0.9),
-0 0 16px rgba(255,255,255,0.6),
-0 3px 10px rgba(0,0,0,0.15);
-}
-
-/* FINAL TEXT */
-
-.line{
-opacity:0;
-transform:translateY(30px);
-transition:all 0.8s ease;
-}
-
-.line.show{
-opacity:1;
-transform:translateY(0);
-}
-
-/* RIPPLE */
-
-.ripple{
-position:fixed;
-width:50px;
-height:50px;
-border-radius:50%;
-border:2px solid rgba(255,255,255,0.8);
-transform:scale(0);
-animation:rippleAnim 0.6s ease-out;
-pointer-events:none;
-z-index:3;
-}
-
-@keyframes rippleAnim{
-to{transform:scale(3); opacity:0;}
-}
-
-/* MOBILE */
-
-@media(max-width:600px){
-
-.card{
-padding:70px 35px;
-min-height:75vh;
-}
-
-.title{
-font-size:30px;
-}
-
-.text{
-font-size:22px;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
-<div id="petal-layer"></div>
+<main class="container">
+    <div class="badge">📢 OFFICIAL NOTICE</div>
 
-<section>
-<div class="card">
-<div class="title">
-<span>🌸</span>
-Happy Women's Day
-<span>🌸</span>
-</div>
-</div>
-</section>
+    <h1>Important Message</h1>
 
-<section>
-<div class="card text">
-🌷 To my wonderful sister,<br><br>
-You have always been<br>
-a quiet strength in my life —<br>
-a constant source of warmth,<br>
-care, and comfort. 💖
-</div>
-</section>
+    <p>My name is <span class="highlight">Misbah</span>.</p>
 
-<section>
-<div class="card text">
-✨ Your kindness,<br>
-your courage,<br>
-and the way you care for others<br><br>
-make the world around you<br>
-brighter than you realize. 🌼
-</div>
-</section>
+    <p>
+        I respectfully request not to be referred to as
+        <span class="highlight">“Babe”</span>.
+    </p>
 
-<section>
-<div class="card text">
-🌸 Through every moment,<br>
-every challenge,<br>
-and every joy in life,<br><br>
-I feel incredibly lucky<br>
-to have a sister like you<br>
-walking beside me. 💫
-</div>
-</section>
+    <p>
+        Please use my name instead. Thank you for understanding.
+    </p>
 
-<section>
-<div class="card text">
-
-<div class="line">💐 On this Women's Day,</div>
-<div class="line">I just want to remind you</div>
-<div class="line">how truly special you are.</div>
-<div class="line">Thank you for being you.</div>
-<div class="line">Happy Women's Day,</div>
-<div class="line">my amazing sister. 🌸</div>
-
-</div>
-</section>
-
-<script>
-
-/* SCROLL REVEAL */
-
-const cards=document.querySelectorAll(".card");
-let triggered=false;
-
-function reveal(){
-
-const trigger=window.innerHeight*0.55;
-
-cards.forEach((card,index)=>{
-
-const rect=card.getBoundingClientRect();
-
-if(rect.top<trigger && rect.bottom>trigger){
-
-card.classList.add("show");
-
-if(index===cards.length-1 && !triggered){
-revealLines();
-sparkles();
-triggered=true;
-}
-
-}else{
-card.classList.remove("show");
-}
-
-});
-
-}
-
-window.addEventListener("scroll",reveal);
-reveal();
-
-/* PETALS */
-
-function petal(){
-
-const p=document.createElement("div");
-
-p.className="petal";
-p.innerHTML="🌸";
-
-p.style.left=Math.random()*100+"%";
-p.style.animationDuration=(Math.random()*6+6)+"s";
-
-document.getElementById("petal-layer").appendChild(p);
-
-setTimeout(()=>{p.remove()},12000);
-
-}
-
-setInterval(petal,700);
-
-/* LINE REVEAL */
-
-function revealLines(){
-
-document.querySelectorAll(".line").forEach((line,i)=>{
-
-setTimeout(()=>{
-line.classList.add("show");
-},i*700);
-
-});
-
-}
-
-/* SPARKLES */
-
-function sparkles(){
-
-for(let i=0;i<30;i++){
-
-setTimeout(()=>{
-
-const s=document.createElement("div");
-
-s.className="sparkle";
-s.innerHTML="✨";
-
-s.style.left=(20+Math.random()*60)+"%";
-s.style.top=(20+Math.random()*60)+"%";
-
-document.body.appendChild(s);
-
-setTimeout(()=>{s.remove()},2000);
-
-},i*80);
-
-}
-
-}
-
-/* RIPPLE */
-
-document.addEventListener("touchmove",e=>{
-
-const r=document.createElement("div");
-r.className="ripple";
-
-r.style.left=(e.touches[0].clientX-25)+"px";
-r.style.top=(e.touches[0].clientY-25)+"px";
-
-document.body.appendChild(r);
-
-setTimeout(()=>{r.remove()},600);
-
-});
-
-/* PARALLAX */
-
-window.addEventListener("scroll",()=>{
-
-const scroll=window.scrollY;
-
-document.body.style.backgroundPosition=
-"center "+(scroll*0.25)+"px";
-
-});
-
-/* 3D TILT */
-
-if (window.DeviceOrientationEvent) {
-
-window.addEventListener("deviceorientation", e=>{
-
-const tiltX=e.beta/30;
-const tiltY=e.gamma/30;
-
-document.querySelectorAll(".card").forEach(card=>{
-card.style.transform=`rotateX(${tiltX}deg) rotateY(${tiltY}deg)`
-});
-
-});
-
-}
-
-</script>
+    <div class="signature">
+        — Misbah
+    </div>
+</main>
 
 </body>
 </html>
