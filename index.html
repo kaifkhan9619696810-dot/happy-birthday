@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Official Notice</title>
+<title>Response to Official Notice</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -16,33 +16,31 @@
 }
 
 body{
-    height:100vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:radial-gradient(circle at top, #1f2937, #0b0f19);
-    color:#fff;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+    padding:20px;
 }
 
 .container{
+    width:100%;
+    max-width:650px;
     text-align:center;
     padding:40px;
-    max-width:600px;
-    width:90%;
+    border-radius:24px;
     background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:20px;
     backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    box-shadow:0 10px 40px rgba(0,0,0,0.5);
-    animation:fadeIn 1s ease-in-out;
+    border:1px solid rgba(255,255,255,0.1);
 }
 
 .badge{
     display:inline-block;
-    padding:6px 14px;
-    background:#ef4444;
-    border-radius:50px;
+    background:#22c55e;
+    padding:8px 16px;
+    border-radius:999px;
     font-size:12px;
     font-weight:600;
     letter-spacing:1px;
@@ -50,64 +48,101 @@ body{
 }
 
 h1{
-    font-size:clamp(2rem, 5vw, 2.5rem);
-    margin-bottom:15px;
-    color:#f9fafb;
+    margin-bottom:20px;
 }
 
 p{
-    font-size:1.2rem;
     color:#cbd5e1;
+    line-height:1.8;
     margin:10px 0;
-    line-height:1.6;
 }
 
 .highlight{
     color:#fbbf24;
-    font-weight:600;
+    font-weight:700;
 }
 
-.signature{
+.buttons{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+button{
+    border:none;
+    padding:12px 24px;
+    border-radius:12px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.approve{
+    background:#ef4444;
+    color:white;
+}
+
+.deny{
+    background:#22c55e;
+    color:white;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+.result{
     margin-top:25px;
-    font-size:0.9rem;
-    color:#94a3b8;
-}
-
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+    font-size:1.1rem;
+    min-height:40px;
 }
 </style>
 </head>
-
 <body>
 
-<main class="container">
-    <div class="badge">📢 OFFICIAL NOTICE</div>
+<div class="container">
 
-    <h1>Important Message</h1>
+    <div class="badge">OFFICIAL RESPONSE</div>
 
-    <p>My name is <span class="highlight">Misbah</span>.</p>
+    <h1>Regarding Your Notice 📝</h1>
 
     <p>
-        I respectfully request not to be referred to as
-        <span class="highlight">“Babe”</span>.
+        Dear <span class="highlight">Misbah</span>,
     </p>
 
     <p>
-        Please use my name instead. Thank you for understanding.
+        Your request to discontinue the usage of the term
+        <span class="highlight">"Babe"</span>
+        has been carefully reviewed.
     </p>
 
-    <div class="signature">
-        — Misbah
+    <p>
+        After extensive consideration, multiple meetings,
+        and absolutely zero unbiased opinions...
+    </p>
+
+    <div class="buttons">
+        <button class="approve" onclick="approveRequest()">Approve Request</button>
+        <button class="deny" onclick="denyRequest()">Deny Request</button>
     </div>
-</main>
+
+    <div class="result" id="result"></div>
+
+</div>
+
+<script>
+function approveRequest(){
+    document.getElementById("result").innerHTML =
+    "❌ Error 404: Approval not found.<br><br>Official verdict: You are still my <b>Babe ❤️</b>";
+}
+
+function denyRequest(){
+    document.getElementById("result").innerHTML =
+    "✅ Request Denied Successfully.<br><br>Final ruling: You remain my <b>Babe ❤️</b> and that's non-negotiable 😌";
+}
+</script>
 
 </body>
 </html>
